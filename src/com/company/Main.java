@@ -1,25 +1,35 @@
 package com.company;
 
-import controller.ScoreBoard;
-import model.apple;
-import model.banana;
-import model.bomb;
+import interfaces.Observer;
+import model.EmailTopic;
+import model.EmailTopicSubscriber;
 
 public class Main {
 
     public static void main(String[] args) {
-        ScoreBoard scoreBoard = new ScoreBoard();
+        EmailTopic topic = new EmailTopic();
 
-        System.out.print("Apple tap score = ");
-        scoreBoard.algorithmBase = new apple();
-        scoreBoard.showScore(10,5);
+        //create observers
+        Observer firstObserver = new EmailTopicSubscriber("First Observer");
+        Observer secondObserver = new EmailTopicSubscriber("Second Observer");
+        Observer thirdObserver = new EmailTopicSubscriber("Third Observer");
 
-        System.out.print("Banana tap score = ");
-        scoreBoard.algorithmBase = new banana();
-        scoreBoard.showScore(10,5);
+        //register observers
+        topic.register(firstObserver);
+        topic.register(secondObserver);
+        topic.register(thirdObserver);
 
-        System.out.print("Bomb tap score = ");
-        scoreBoard.algorithmBase = new bomb();
-        scoreBoard.showScore(10,5);
+        //attaching observer to subject
+        firstObserver.setSubject(topic);
+        secondObserver.setSubject(topic);
+        thirdObserver.setSubject(topic);
+
+        //checking for updates
+        firstObserver.update();
+
+        //provider
+        topic.postMessage("Hello Subscribers");
+
+
     }
 }
