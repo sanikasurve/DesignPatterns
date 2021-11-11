@@ -1,22 +1,22 @@
 package com.company;
 
-import interfaces.IceCream;
-import model.BasicIceCream;
-import model.ButterscotchIceCream;
-import model.ChocolateIceCream;
+import com.company.interfaces.HamburgerStore;
+import com.company.model.DelhiHamburgerStore;
+import com.company.model.Hamburger;
+import com.company.model.MumbaiHamburgerStore;
 
 public class Main {
+
     public static void main(String[] args) {
-        IceCream basicIceCream = new BasicIceCream();
-        System.out.println("Basic Ice-cream cost Rs "+ basicIceCream.cost());
+        HamburgerStore delhiBurgerStore = new DelhiHamburgerStore();
 
-        //add butterscotch to the order
-        IceCream butterscotch = new ButterscotchIceCream(basicIceCream);
-        System.out.println("Adding butterscotch - cost is Rs " + butterscotch.cost());
+        HamburgerStore mumbaiBurgerStore = new MumbaiHamburgerStore();
 
-        //adding chocolate to the order
-        IceCream chocolate = new ChocolateIceCream(butterscotch);
-        System.out.println("Adding chocolate - cost is Rs " + chocolate.cost());
+        Hamburger hamburger = delhiBurgerStore.orderHamburger("cheese");
+        System.out.println("Sanika ordered " + hamburger.getName() + "\n");
+
+        hamburger = mumbaiBurgerStore.orderHamburger("veggie");
+        System.out.println("Samiksha ordered " + hamburger.getName() + "\n");
 
     }
 }
