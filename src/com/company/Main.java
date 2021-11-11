@@ -1,35 +1,22 @@
 package com.company;
 
-import interfaces.Observer;
-import model.EmailTopic;
-import model.EmailTopicSubscriber;
+import interfaces.IceCream;
+import model.BasicIceCream;
+import model.ButterscotchIceCream;
+import model.ChocolateIceCream;
 
 public class Main {
-
     public static void main(String[] args) {
-        EmailTopic topic = new EmailTopic();
+        IceCream basicIceCream = new BasicIceCream();
+        System.out.println("Basic Ice-cream cost Rs "+ basicIceCream.cost());
 
-        //create observers
-        Observer firstObserver = new EmailTopicSubscriber("First Observer");
-        Observer secondObserver = new EmailTopicSubscriber("Second Observer");
-        Observer thirdObserver = new EmailTopicSubscriber("Third Observer");
+        //add butterscotch to the order
+        IceCream butterscotch = new ButterscotchIceCream(basicIceCream);
+        System.out.println("Adding butterscotch - cost is Rs " + butterscotch.cost());
 
-        //register observers
-        topic.register(firstObserver);
-        topic.register(secondObserver);
-        topic.register(thirdObserver);
-
-        //attaching observer to subject
-        firstObserver.setSubject(topic);
-        secondObserver.setSubject(topic);
-        thirdObserver.setSubject(topic);
-
-        //checking for updates
-        firstObserver.update();
-
-        //provider
-        topic.postMessage("Hello Subscribers");
-
+        //adding chocolate to the order
+        IceCream chocolate = new ChocolateIceCream(butterscotch);
+        System.out.println("Adding chocolate - cost is Rs " + chocolate.cost());
 
     }
 }
