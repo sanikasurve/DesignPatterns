@@ -1,41 +1,51 @@
 package com.company;
-import com.company.model.*;
+
+import com.company.interfaces.SocketAdapter;
+import com.company.model.SocketAdapterImplementation;
+import com.company.model.SocketObjectAdapterImplementation;
+import com.company.model.Volt;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // Create our receivers
-        MarioCharacterReceiver mario = new MarioCharacterReceiver();
-        mario.setName("Mario");
+        testingObjectAdapter();
+        testingClassAdapter();
 
-        KirbyCharacterReceiver kirby = new KirbyCharacterReceiver();
-        kirby.setName("Kirby");
-
-        //Create commands
-        MarioUpCommand marioUpCommand = new MarioUpCommand(mario);
-        MarioDownCommand marioDownCommand = new MarioDownCommand(mario);
-        MarioLeftCommand marioLeftCommand = new MarioLeftCommand(mario);
-        MarioRightCommand marioRightCommand = new MarioRightCommand(mario);
-
-        KirbyUpCommand kirbyUpCommand = new KirbyUpCommand(kirby);
-        KirbyDownCommand kirbyDownCommand = new KirbyDownCommand(kirby);
-        KirbyLeftCommand kirbyLeftCommand = new KirbyLeftCommand(kirby);
-        KirbyRightCommand kirbyRightCommand = new KirbyRightCommand(kirby);
+    }
 
 
-        //Invoker
-        GameBoy gameBoy = new GameBoy(marioUpCommand, marioDownCommand, marioLeftCommand, marioRightCommand);
-        gameBoy.arrowDown();
+    private static  void testingClassAdapter() {
+        SocketAdapter socketAdapter = new SocketAdapterImplementation();
+        Volt v3 = getVolt(socketAdapter, 3);
+        Volt v12 = getVolt(socketAdapter, 12);
+        Volt v120 = getVolt(socketAdapter, 120);
+
+        System.out.println(" V3 volts is using Class Adapter " + v3.getVolts());
+        System.out.println(" V12 volts is using Class Adapter " + v12.getVolts());
+        System.out.println(" V120 volts is using Class Adapter " + v120.getVolts());
 
 
-        GameBoy gameBoy2 = new GameBoy(kirbyUpCommand, kirbyDownCommand, kirbyLeftCommand, kirbyRightCommand);
-        gameBoy2.arrowDown();
-        gameBoy2.arrowUp();
-        gameBoy2.arrowLeft();
-        gameBoy2.arrowRight();
+    }
+    private static void testingObjectAdapter() {
+        SocketAdapter socketAdapter = new SocketObjectAdapterImplementation();
+        Volt v3 = getVolt(socketAdapter, 3);
+        Volt v12 = getVolt(socketAdapter, 12);
+        Volt v120 = getVolt(socketAdapter, 120);
+
+        System.out.println(" V3 volts is using Object Adapter " + v3.getVolts());
+        System.out.println(" V12 volts is using Object Adapter " + v12.getVolts());
+        System.out.println(" V120 volts is using Object Adapter " + v120.getVolts());
+
+    }
 
 
-
+    private static Volt getVolt(SocketAdapter socketAdapter, int i) {
+        switch (i) {
+            case 3: return socketAdapter.get3Volts();
+            case 12: return  socketAdapter.get12Volts();
+            case 120: return socketAdapter.get120Volts();
+            default: return socketAdapter.get120Volts();
+        }
     }
 }
