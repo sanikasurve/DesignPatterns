@@ -1,39 +1,28 @@
 package com.company;
 
-import com.company.controller.EmployeeController;
-import com.company.model.Employee;
-import com.company.view.EmployeeDashboardView;
-
 public class Main {
 
     public static void main(String[] args) {
 
-        Employee employee = retrieveEmployeeFromServer();
+        //An example of a Java Library class that uses the Builder Design Patterns
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("Hello World")
+//                .append("I don't know")
+//                .append("This is the end");
 
-        //Create our view to which we'll write our employee information into
-        EmployeeDashboardView view = new EmployeeDashboardView();
+       // System.out.println(stringBuilder);
 
-        //Create our controller
-        EmployeeController controller = new EmployeeController(employee, view);
+       User James = new User.UserBuilder("Ram", "Sharma")
+               .phoneNumber("789")
+               .build();
 
+        //System.out.println(James);
 
+        Person tallPerson = new Person.Builder("Ram", "Kumar ").build();
 
-//        controller.setEmployee(employee.getFirstName(), employee.getLastName());
+        System.out.println(tallPerson);
 
-        controller.updateDashboardView();
-
-
-
-    }
-
-    public static Employee retrieveEmployeeFromServer() {
-        Employee employee = new Employee();
-        employee.setSsNumber("8643257");
-        employee.setFirstName("Ram");
-        employee.setLastName("Sharma");
-        employee.setSalary(500000);
-
-        return employee;
 
     }
+
 }
