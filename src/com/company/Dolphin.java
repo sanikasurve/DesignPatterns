@@ -1,10 +1,10 @@
 package com.company;
 
-public class Person implements Prototype {
+public class Dolphin implements Prototype {
     private String name;
     private int age;
 
-    public Person(String name, int age) {
+    public Dolphin(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -27,7 +27,7 @@ public class Person implements Prototype {
 
     @Override
     public Prototype clone() {
-        return new Person(name, age);
+        return new Dolphin(name, age);
     }
 
     @Override

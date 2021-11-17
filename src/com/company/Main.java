@@ -1,28 +1,34 @@
 package com.company;
 
+import model.Person;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        //An example of a Java Library class that uses the Builder Design Patterns
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder.append("Hello World")
-//                .append("I don't know")
-//                .append("This is the end");
 
-       // System.out.println(stringBuilder);
+        Person person = new Person("Ram", 45);
+        System.out.println("Person 1: " + person);
 
-       User James = new User.UserBuilder("Ram", "Sharma")
-               .phoneNumber("789")
-               .build();
+        Person secondPerson = (Person)person.clone();
+        System.out.println("Person copy: " + secondPerson);
 
-        //System.out.println(James);
-
-        Person tallPerson = new Person.Builder("Ram", "Kumar ").build();
-
-        System.out.println(tallPerson);
+        System.out.println(System.identityHashCode(person) + " \n"
+        + System.identityHashCode(secondPerson));
 
 
+//        Person bonni = new Person("Bonni", 21);
+//        System.out.println("Person 1:  " + bonni);
+//
+//        Person nina = (Person)bonni.clone();
+//        nina.setName("Nina");
+//        System.out.println("Person 2: " + nina);
+//
+//
+//        Dolphin jerrry = new Dolphin("Jerry", 78);
+//        System.out.println("Dolphin 1: " + jerrry);
+//
+//        Dolphin sam = (Dolphin)jerrry.clone();
+//        System.out.println("Dolphin 2: " + sam);
     }
-
 }
