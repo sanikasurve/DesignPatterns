@@ -1,34 +1,21 @@
 package com.company;
 
-import model.Person;
-
 public class Main {
 
     public static void main(String[] args) {
 
+        ATCMediator mediator = new ATCMediatorImpl();
 
-        Person person = new Person("Ram", 45);
-        System.out.println("Person 1: " + person);
+        //Create a few aircrafts
+        AirCraft boing1 = new AirCraftImpl(mediator,"Boing 1");
+        AirCraft helicopter = new AirCraftImpl(mediator, "Helicopter");
+        AirCraft boing707 = new AirCraftImpl(mediator, "Boing 707");
 
-        Person secondPerson = (Person)person.clone();
-        System.out.println("Person copy: " + secondPerson);
+        //Adding aircrafts to the mediator
+        mediator.addAirCraft(boing1);
+       // mediator.addAirCraft(helicopter);
+        mediator.addAirCraft(boing707);
 
-        System.out.println(System.identityHashCode(person) + " \n"
-        + System.identityHashCode(secondPerson));
-
-
-//        Person bonni = new Person("Bonni", 21);
-//        System.out.println("Person 1:  " + bonni);
-//
-//        Person nina = (Person)bonni.clone();
-//        nina.setName("Nina");
-//        System.out.println("Person 2: " + nina);
-//
-//
-//        Dolphin jerrry = new Dolphin("Jerry", 78);
-//        System.out.println("Dolphin 1: " + jerrry);
-//
-//        Dolphin sam = (Dolphin)jerrry.clone();
-//        System.out.println("Dolphin 2: " + sam);
+        boing1.send("Hello from Boing 1");
     }
 }
