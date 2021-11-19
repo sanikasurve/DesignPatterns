@@ -4,18 +4,33 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ATCMediator mediator = new ATCMediatorImpl();
+        Originator originator = new Originator();
+        originator.setState("Monster");
 
-        //Create a few aircrafts
-        AirCraft boing1 = new AirCraftImpl(mediator,"Boing 1");
-        AirCraft helicopter = new AirCraftImpl(mediator, "Helicopter");
-        AirCraft boing707 = new AirCraftImpl(mediator, "Boing 707");
+        Memento memento = originator.createMemento();
 
-        //Adding aircrafts to the mediator
-        mediator.addAirCraft(boing1);
-       // mediator.addAirCraft(helicopter);
-        mediator.addAirCraft(boing707);
+        CareTaker careTaker = new CareTaker();
+        careTaker.addMemento(memento);
 
-        boing1.send("Hello from Boing 1");
+        originator.setState("Monster 2");
+        originator.setState("Monster 3");
+
+        memento = originator.createMemento();
+        careTaker.addMemento(memento);
+
+        originator.setState("Monster 4");
+
+        System.out.println("Originator current state: " + originator.getState());
+
+        System.out.println("Originator restoring to previous state....");
+        memento = careTaker.getMemento(1);
+        originator.setMemento(memento);
+
+        System.out.println("Originator current state: " + originator.getState());
+        System.out.println("Again restoring to previous state ... ");
+        memento = careTaker.getMemento(0);
+        originator.setMemento(memento);
+
+        System.out.println("Originator current state: " + originator.getState());
     }
 }
