@@ -1,36 +1,33 @@
 package com.company;
 
 public class Main {
+    public InterpreterContext interpreterContext;
 
     public static void main(String[] args) {
+        String first = "28 in Binary";
+        String second = "28 in Hexadecimal";
 
-        Originator originator = new Originator();
-        originator.setState("Monster");
+        Main interpreter = new Main(new InterpreterContext());
+        System.out.println(first+ " = " + interpreter.interpret(first));
+        System.out.println(second+ " = " + interpreter.interpret(second));
 
-        Memento memento = originator.createMemento();
 
-        CareTaker careTaker = new CareTaker();
-        careTaker.addMemento(memento);
+    }
 
-        originator.setState("Monster 2");
-        originator.setState("Monster 3");
+    public Main(InterpreterContext interpreterContext) {
+        this.interpreterContext = interpreterContext;
+    }
 
-        memento = originator.createMemento();
-        careTaker.addMemento(memento);
+    public  String interpret(String str) {
+        Expression expression = null;
 
-        originator.setState("Monster 4");
+        if (str.contains("Hexadecimal")) {
+            expression = new IntToHexExpression(Integer.parseInt(str.substring(0, str.indexOf(" "))));
+        }else if (str.contains("Binary")) {
+            expression = new IntToBinaryExpression(Integer.parseInt(str.substring(0, str.indexOf(" "))));
+        }else return str;
 
-        System.out.println("Originator current state: " + originator.getState());
+        return expression.interpreter(interpreterContext);
 
-        System.out.println("Originator restoring to previous state....");
-        memento = careTaker.getMemento(1);
-        originator.setMemento(memento);
-
-        System.out.println("Originator current state: " + originator.getState());
-        System.out.println("Again restoring to previous state ... ");
-        memento = careTaker.getMemento(0);
-        originator.setMemento(memento);
-
-        System.out.println("Originator current state: " + originator.getState());
     }
 }
